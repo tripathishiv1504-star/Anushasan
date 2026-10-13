@@ -13,6 +13,7 @@ export default defineConfig({
       recharts: path.resolve(__dirname, './src/components/common/RechartsShim.jsx'),
     },
   },
+  envPrefix: ['VITE_', 'SUPABASE_', 'NEXT_PUBLIC_'],
   server: {
     port: 3000,
     open: true,
