@@ -1,0 +1,97 @@
+/* ==========================================================================
+   Study Tracker Page Styles
+   ========================================================================== */
+
+.study-tracker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.study-tracker__loading,
+.study-tracker__error {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.study-tracker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+}
+
+.study-tracker__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-24);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--space-4) 0;
+  letter-spacing: -0.02em;
+}
+
+.study-tracker__subtitle {
+  font-size: var(--font-size-14);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.study-tracker__quick-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.tracker-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.tracker-stat-pill__label {
+  font-size: var(--font-size-12);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.tracker-stat-pill__value {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-14);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+/* 2-Column Responsive Grid */
+.study-tracker__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-24);
+}
+
+@media (min-width: 1024px) {
+  .study-tracker__grid {
+    grid-template-columns: 1.25fr 1fr;
+    align-items: start;
+  }
+}
+
+.study-tracker__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}

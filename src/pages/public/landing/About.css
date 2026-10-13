@@ -1,0 +1,116 @@
+.about {
+  padding: var(--space-64) 0;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.about__header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto var(--space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.about__eyebrow {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-label);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.about__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-heading);
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .about__title {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+.about__description {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.about__solution {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  line-height: 1.6;
+  background-color: var(--color-bg);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
+  text-align: left;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .about__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.about__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+}
+
+.about__card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-1);
+}
+
+.about__card-icon--teal {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.about__card-icon--amber {
+  background-color: var(--color-accent-soft);
+  color: var(--color-warning);
+}
+
+.about__card-icon--indigo {
+  background-color: #E0E7FF;
+  color: #4F46E5;
+}
+
+.about__card-stat {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-heading);
+  color: var(--color-text);
+}
+
+.about__card-heading {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-label);
+  color: var(--color-text-muted);
+}
+
+.about__card-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}

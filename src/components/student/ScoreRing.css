@@ -1,0 +1,76 @@
+.score-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.score-ring__svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.score-ring__track {
+  fill: none;
+  stroke: var(--color-border);
+}
+
+.score-ring__indicator {
+  fill: none;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Good State (>= 75) */
+.score-ring--good .score-ring__indicator {
+  stroke: var(--color-primary);
+}
+
+.score-ring--good .score-ring__track {
+  stroke: var(--color-primary-soft);
+}
+
+/* Medium State (50 - 74) */
+.score-ring--medium .score-ring__indicator {
+  stroke: var(--color-accent);
+}
+
+.score-ring--medium .score-ring__track {
+  stroke: var(--color-accent-soft);
+}
+
+/* At Risk State (< 50 or drop >= 15) */
+.score-ring--risk .score-ring__indicator {
+  stroke: var(--color-danger);
+}
+
+.score-ring--risk .score-ring__track {
+  stroke: #FEE2E2;
+}
+
+.score-ring__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  text-align: center;
+}
+
+.score-ring__value {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-24);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-text);
+}
+
+.score-ring__scale {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}

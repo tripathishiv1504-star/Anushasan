@@ -1,0 +1,233 @@
+/* DeptChart Styles */
+
+.dept-chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.dept-chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-sm);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.dept-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.dept-chart-title {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.dept-chart-subtitle {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  margin: 2px 0 0 0;
+}
+
+.dept-chart-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+}
+
+.legend-dash {
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.dot-score {
+  background-color: var(--color-primary);
+}
+
+.dot-attendance {
+  background-color: #3b82f6;
+}
+
+.dot-trend {
+  background-color: #0f766e;
+}
+
+.dot-benchmark {
+  background-color: #ef4444;
+}
+
+/* SVG Chart Container */
+.dept-chart-svg-container {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.dept-chart-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Grid & Axes */
+.grid-line {
+  stroke: var(--color-border);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+  opacity: 0.6;
+}
+
+.axis-label {
+  font-size: 10px;
+  fill: var(--color-text-muted);
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.axis-label-x {
+  font-size: 11px;
+  fill: var(--color-text-secondary);
+  font-family: inherit;
+  font-weight: 500;
+  transition: fill var(--transition-fast), font-weight var(--transition-fast);
+}
+
+.axis-label-x.label-active {
+  fill: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.threshold-line {
+  stroke: #ef4444;
+  stroke-width: 1.5;
+  opacity: 0.75;
+}
+
+.threshold-label {
+  font-size: 9px;
+  fill: #ef4444;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Bar Elements */
+.bar-group {
+  cursor: pointer;
+}
+
+.bar-rect {
+  transition: transform 120ms ease, opacity 120ms ease, fill 120ms ease;
+}
+
+.bar-score {
+  fill: var(--color-primary);
+}
+
+.bar-attendance {
+  fill: #3b82f6;
+}
+
+.bar-hovered {
+  opacity: 0.88;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+/* Trend Line Elements */
+.trend-path {
+  filter: drop-shadow(0 2px 4px rgba(15, 118, 110, 0.2));
+}
+
+.trend-circle {
+  fill: #ffffff;
+  stroke: #0f766e;
+  stroke-width: 2.5;
+  transition: r 120ms ease, stroke-width 120ms ease;
+}
+
+.trend-circle.circle-active {
+  stroke-width: 3.5;
+  fill: #0f766e;
+}
+
+/* Tooltip Overlay */
+.dept-chart-tooltip {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  z-index: 20;
+  min-width: 160px;
+  font-size: var(--font-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tooltip-title {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 4px;
+  margin-bottom: 2px;
+}
+
+.tooltip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  color: var(--color-text-secondary);
+}
+
+.tooltip-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.tooltip-risk {
+  color: #dc2626;
+  font-weight: 600;
+  border-top: 1px dashed var(--color-border);
+  padding-top: 3px;
+  margin-top: 2px;
+}
+
+.tooltip-hint {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: 2px;
+}

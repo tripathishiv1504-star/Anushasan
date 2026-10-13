@@ -1,0 +1,504 @@
+/* Department Analytics Styles */
+
+.dept-analytics-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Header */
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.analytics-title {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.analytics-subtitle {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Filter Control */
+.analytics-filter-box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-icon {
+  color: var(--color-primary);
+}
+
+.filter-label {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.filter-select {
+  border: none;
+  background: transparent;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  outline: none;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.filter-select:focus {
+  color: var(--color-primary);
+}
+
+/* Error Banner */
+.analytics-error-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-md);
+  color: #dc2626;
+  font-size: var(--font-sm);
+}
+
+/* 4 Summary Stat Cards Grid */
+.analytics-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.metric-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-2);
+}
+
+.metric-label {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-students {
+  background: rgba(15, 118, 110, 0.12);
+  color: var(--color-primary);
+}
+
+.icon-score {
+  background: rgba(99, 102, 241, 0.12);
+  color: #6366f1;
+}
+
+.icon-risk {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.icon-attendance {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.metric-val {
+  font-size: var(--font-3xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+  margin-bottom: var(--space-2);
+}
+
+.val-risk {
+  color: #dc2626;
+}
+
+.metric-unit {
+  font-size: var(--font-base);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.metric-caption {
+  font-size: var(--font-xs);
+  color: var(--color-text-muted);
+}
+
+.metric-caption .text-risk {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.metric-badge-row {
+  margin-top: 2px;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.pill-success {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.pill-primary {
+  background: rgba(15, 118, 110, 0.12);
+  color: var(--color-primary);
+}
+
+.pill-warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+}
+
+.pill-danger {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+
+/* Charts Grid */
+.analytics-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.chart-card {
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Distribution Breakdown Card */
+.distribution-card {
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.distribution-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dist-title-box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dist-icon {
+  color: var(--color-primary);
+}
+
+.dist-title {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.dist-subtitle {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  margin: 2px 0 0 0;
+}
+
+.distribution-bands-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.dist-band-box {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.dist-band-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-xs);
+}
+
+.band-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.band-count {
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.band-bar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.band-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 300ms ease;
+}
+
+.fill-critical {
+  background-color: #ef4444;
+}
+
+.fill-attention {
+  background-color: #f59e0b;
+}
+
+.fill-good {
+  background-color: var(--color-primary);
+}
+
+.fill-excellent {
+  background-color: #10b981;
+}
+
+/* Telemetry Table Card */
+.telemetry-table-card {
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.table-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-header-title {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.table-header-subtitle {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  margin: 2px 0 0 0;
+}
+
+.table-responsive-container {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.telemetry-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--font-sm);
+}
+
+.telemetry-table th {
+  background: var(--color-background);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: var(--font-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.telemetry-row {
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-fast);
+}
+
+.telemetry-row:hover {
+  background-color: rgba(15, 118, 110, 0.03);
+}
+
+.telemetry-row td {
+  padding: var(--space-3) var(--space-4);
+  vertical-align: middle;
+}
+
+.td-course-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.course-name {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.join-code-tag {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-family: monospace;
+}
+
+.score-cell-box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.score-number {
+  min-width: 24px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.score-mini-track {
+  width: 60px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.score-mini-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+
+.attendance-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-xs);
+  font-weight: 700;
+}
+
+.attendance-healthy {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.attendance-low {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+
+.risk-indicator-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.clean-indicator-pill {
+  font-size: 11px;
+  color: #059669;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .analytics-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .analytics-charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .distribution-bands-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .analytics-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .distribution-bands-grid {
+    grid-template-columns: 1fr;
+  }
+}

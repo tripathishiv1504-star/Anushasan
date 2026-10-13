@@ -1,0 +1,138 @@
+.week-chart-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+}
+
+.week-chart-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-16);
+  margin-bottom: var(--space-16);
+  flex-wrap: wrap;
+}
+
+.week-chart-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-18);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.week-chart-card__subtitle {
+  font-size: var(--font-size-14);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.week-chart-card__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.week-chart-card__summary-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.week-chart-card__summary-label {
+  font-size: var(--font-size-12);
+  color: var(--color-text-muted);
+}
+
+.week-chart-card__summary-value {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-16);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.week-chart-card__canvas-wrap {
+  width: 100%;
+  margin-bottom: var(--space-12);
+}
+
+.week-chart__tooltip {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-8) var(--space-12);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.week-chart__tooltip-date {
+  font-size: var(--font-size-12);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.week-chart__tooltip-value-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.week-chart__tooltip-value {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-16);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.week-chart__tooltip-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg);
+  color: var(--color-text-muted);
+}
+
+.week-chart__tooltip-tag--goal {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.week-chart-card__legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  font-size: var(--font-size-12);
+  color: var(--color-text-muted);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.week-chart-card__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.week-chart-card__legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.week-chart-card__legend-dot--primary {
+  background-color: var(--color-primary);
+}
+
+.week-chart-card__legend-dot--muted {
+  background-color: #94A3B8;
+}
+
+.week-chart-card__legend-line {
+  width: 16px;
+  height: 2px;
+  border-top: 2px dashed #D97706;
+}

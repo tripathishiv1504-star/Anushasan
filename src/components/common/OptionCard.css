@@ -1,0 +1,155 @@
+.option-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  user-select: none;
+  outline: none;
+  height: 100%;
+}
+
+.option-card:hover:not(.option-card--disabled) {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.option-card:active:not(.option-card--disabled) {
+  transform: translateY(-1px);
+}
+
+.option-card:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.option-card--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.option-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
+.option-card__icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 180ms ease;
+}
+
+.option-card:hover .option-card__icon-wrap {
+  transform: scale(1.05);
+}
+
+.option-card__badge {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-heading);
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-full);
+}
+
+.option-card__body {
+  margin-bottom: var(--space-6);
+  flex-grow: 1;
+}
+
+.option-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-heading);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.option-card__description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.option-card__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-label);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  transition: gap 150ms ease;
+}
+
+.option-card:hover .option-card__footer {
+  gap: var(--space-3);
+}
+
+.option-card__arrow {
+  transition: transform 150ms ease;
+}
+
+.option-card:hover .option-card__arrow {
+  transform: translateX(3px);
+}
+
+/* Student Variant */
+.option-card--student:hover {
+  border-color: var(--color-role-student);
+}
+.option-card--student .option-card__icon-wrap {
+  background-color: var(--color-primary-soft);
+  color: var(--color-role-student);
+}
+.option-card--student .option-card__badge {
+  background-color: var(--color-primary-soft);
+  color: var(--color-role-student);
+}
+.option-card--student .option-card__footer {
+  color: var(--color-role-student);
+}
+
+/* Mentor Variant */
+.option-card--mentor:hover {
+  border-color: var(--color-role-mentor);
+}
+.option-card--mentor .option-card__icon-wrap {
+  background-color: #EEF2FF;
+  color: var(--color-role-mentor);
+}
+.option-card--mentor .option-card__badge {
+  background-color: #EEF2FF;
+  color: var(--color-role-mentor);
+}
+.option-card--mentor .option-card__footer {
+  color: var(--color-role-mentor);
+}
+
+/* Admin Variant */
+.option-card--admin:hover {
+  border-color: var(--color-role-admin);
+}
+.option-card--admin .option-card__icon-wrap {
+  background-color: #FFE4E6;
+  color: var(--color-role-admin);
+}
+.option-card--admin .option-card__badge {
+  background-color: #FFE4E6;
+  color: var(--color-role-admin);
+}
+.option-card--admin .option-card__footer {
+  color: var(--color-role-admin);
+}

@@ -1,0 +1,232 @@
+.task-manager {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  background-color: var(--color-surface);
+}
+
+.task-manager__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+}
+
+.task-manager__title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.task-manager__icon {
+  color: var(--color-primary);
+}
+
+.task-manager__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-18);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* Filter Tabs */
+.task-manager__tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-8);
+}
+
+.task-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: var(--font-size-14);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.task-tab:hover {
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+.task-tab--active {
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+  font-weight: 600;
+}
+
+.task-tab__count {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.task-tab--active .task-tab__count {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+/* Tasks List */
+.task-manager__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all 0.15s ease;
+}
+
+.task-item:hover {
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+.task-item--done {
+  opacity: 0.75;
+  background-color: #FAFAFA;
+}
+
+.task-item--overdue {
+  border-left: 3px solid var(--color-danger);
+}
+
+.task-item__checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 2px;
+  user-select: none;
+}
+
+.task-item__native-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+.task-item__custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  border: 2px solid #94A3B8;
+  background-color: var(--color-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.task-item__native-checkbox:hover + .task-item__custom-checkbox {
+  border-color: var(--color-primary);
+}
+
+.task-item--done .task-item__custom-checkbox {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.task-item__check-icon {
+  stroke-width: 3;
+}
+
+.task-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+}
+
+.task-item__title {
+  font-size: var(--font-size-14);
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.task-item--done .task-item__title {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.task-item__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: var(--font-size-12);
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+}
+
+.task-item__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+}
+
+.task-item--overdue .task-item__date {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.task-item__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.task-item__action-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.task-item__action-btn:hover {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.task-item__action-btn--delete:hover {
+  background-color: #FEE2E2;
+  color: var(--color-danger);
+}
+
+.task-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}

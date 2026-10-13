@@ -1,0 +1,355 @@
+# Progress
+
+## Steps
+- [x] Step 0 — Project setup
+- [x] Step 1 — Landing page
+- [x] Step 2 — Sign up / Log in page
+- [x] Step 3 — "Who are you?" role selection
+- [x] Step 4 — Student mode and class code
+- [x] Step 5 — App shell and route protection
+- [x] Step 6 — Student dashboard
+- [x] Step 7 — Study tracker
+- [x] Step 8 — Habits and goals
+- [x] Step 9 — Resource library
+- [x] Step 10 — Attendance and grievances (student)
+- [x] Step 11 — Weekly report and badges
+- [x] Step 12 — Student profile and settings
+- [x] Step 13 — Mentor classes and create class
+- [x] Step 14 — Mentor class dashboard and risk alerts
+- [x] Step 15 — Mentor resource upload
+- [x] Step 16 — Mentor attendance marking
+- [x] Step 17 — Mentor grievance resolution
+- [x] Step 18 — Admin department setup
+- [x] Step 19 — Admin analytics, grievances, and counselling
+- [x] Step 20 — Polish, responsive audit, and README
+- [x] Step 21 — Supabase migration (Phase 2)
+  - [x] Step 21a — Setup (@supabase/supabase-js, supabaseClient.js, .env.example)
+  - [x] Step 21b — Database (schema.sql with section 10 tables, UUIDs, FKs, indexes)
+  - [x] Step 21c — Security (Row Level Security policies for all roles)
+  - [x] Step 21d — Auth (Supabase Auth integration in authService & AuthContext)
+  - [x] Step 21e — Storage (PDF storage bucket config & resource upload handling)
+  - [x] Step 21f — Services (Migrate service files to Supabase tables)
+  - [x] Step 21g — Cleanup (Remove mock data dependencies, update README)
+
+## Fixes
+- **Mentor Login & Role Routing**:
+  - Added direct role login options to landing page role cards (`/auth?mode=login&role=mentor`, `role=student`, `role=admin`).
+  - Implemented 1-click instant login demo chips on `/auth` (`Mentor (Prof. Verma)`, `Student (Class)`, `Student (Solo)`, `Admin`).
+  - Added role-tailored headings and subtitle copy on `/auth` for each role persona.
+  - Added faculty mentor accounts (`kavita.raman@campus.edu`, `alok.nath@campus.edu`) to mock database with assigned course sections.
+  - Added UUID regex safety check in `mentorService.js` to prevent Postgres 400 Bad Request syntax errors on mock IDs.
+- **Blank White Screen on Mentor Portal (`/mentor/classes`)**:
+  - Resolved fatal React render crash caused by passing JSX elements (`icon={<Plus />}`) to `Button.jsx` and `EmptyState.jsx`.
+  - Upgraded `Button.jsx`, `EmptyState.jsx`, `Badge.jsx`, `StatCard.jsx`, and `OptionCard.jsx` to polymorphically support both React elements (`React.isValidElement(Icon)`) and component identifiers.
+  - Added `loading` prop alias in `Button.jsx` and `.badge--primary` styling in `Badge.css`.
+  - Created top-level `ErrorBoundary.jsx` and wrapped `App.jsx` to prevent any sub-component render error from wiping the DOM.
+- **Browser History & Back Navigation**:
+  - Removed aggressive auto-redirect in `Auth.jsx` that was hijacking browser Back button navigation and trapping logged-in users.
+  - Replaced `navigate(destination, { replace: true })` with standard `navigate(destination)` in `Auth.jsx` to preserve history entries.
+
+## Notes
+- Step 0 completed: Project foundation initialized with Vite, React, React Router, Lucide icons, full tokenized design system in tokens.css & global.css, and all 12 common shared UI components.
+- Scoped localStorage wrapper in storage.js with 'anushasan:' prefix.
+- All 25 routes from 03_PROJECT_SPEC.md mapped in routeConfig.js and handled with placeholders in AppRoutes.jsx.
+- Step 1 completed: Built polished 10-section landing page at '/' with sticky PublicNavbar, pure CSS dashboard preview card in Hero, About, 8-card Features grid, 3-step How It Works, token-themed 3-portal Roles, Solo mode banner callout, native details FAQ, high-conversion Final CTA, and semantic Footer. Fully responsive at 375px, 768px, and 1280px with no external images or placeholder text.
+- Step 2 completed: Authentication page at '/auth' with two-column responsive layout, Log in / Sign up URL-synced toggle, robust validation, mock authService with simulated delay and local storage session.
+- Demo Accounts (Email / Password):
+  - Student (Class Mode): `student@campus.edu` / `Password123` -> lands on `/student/dashboard`
+  - Mentor: `mentor@campus.edu` / `Password123` -> lands on `/mentor/classes`
+  - Admin: `admin@campus.edu` / `Password123` -> lands on `/admin/analytics`
+  - New Sign Up: new account created with no role -> lands on `/select-role`
+- Step 3 completed: Role selection page at '/select-role' with personalized greeting, 3 large accessible OptionCards (Student portal, Mentor portal, Admin authority portal) matching role tokens, keyboard navigation (Tab/Enter), logout action, and automatic role redirection.
+- Step 4 completed: Student mode selection at '/student/mode' with 2 OptionCards ('Join a class' and 'Prepare solo') with zero question text, and class join page at '/student/join-class' with auto-formatted 6-character code input, live class search, and confirmation preview card.
+- Working Class Join Codes for Review:
+  - `CS301A` — Operating Systems & Architecture (Mentor: Prof. Rajesh Verma)
+  - `DS201B` — Data Structures & Algorithms (Mentor: Prof. Rajesh Verma)
+  - `AI401C` — Machine Learning Foundations (Mentor: Dr. Sunita Rao)
+- Step 5 completed: Authenticated layout foundation implemented with AppShell, responsive sticky Sidebar, Topbar with dynamic route titles and avatar dropdown, MobileNav slide-in drawer (< 1024px), role-tailored sidebar links in navigation.js, and ProtectedRoute with all 5 role/mode redirection guards.
+- Step 6 completed: Student dashboard home screen at `/student/dashboard`.
+  - Discipline score calculation in `src/utils/scoring.js` strictly following 03_PROJECT_SPEC.md section 11:
+    - Class mode: Study consistency (35 pts, >= 30m/day), Task completion (25 pts), Habit completion (20 pts), Attendance (20 pts).
+    - Solo mode: Study consistency (40 pts), Task completion (30 pts), Habit completion (30 pts). Attendance omitted completely.
+    - Streak calculation: Consecutive days with at least 30 minutes of study, counted back from today with ongoing day grace period.
+    - Risk rule: Student flagged as at-risk if score < 50 or dropped >= 15 pts vs previous week, rendering prominent recovery alert banner.
+  - Interactive `TodayTasks` checklist: checking a box toggles `is_done`, persists in localStorage via `scoreService.toggleTask`, immediately updates task counts, and recalculates the score live.
+  - `WeekChart` Recharts bar chart displaying daily study minutes for the current week with 30m goal reference line and duration tooltips.
+  - Custom SVG `ScoreRing` and `StreakCard` with saffron flame styling and motivational status.
+  - Seeded 4 weeks of rich study sessions and tasks for demo students in `src/mock/studySessions.js` and `src/mock/tasks.js`.
+  - Added Solo Student demo account: `solo@campus.edu` / `Password123` (`Priya Patel`) to verify solo layout and attendance omission.
+  - Tested loading, empty, and error states with retry functionality. Full responsive support across mobile (375px), tablet (768px), and desktop (1280px).
+- Step 7 completed: Study tracker and task management at `/student/study`.
+  - Built `StudyTimer` stopwatch with Start, Pause, Resume, Stop and save controls, real-time HH:MM:SS elapsed counter, and browser `beforeunload` warning when timer is running.
+  - Added manual session logging modal with subject, date, duration, notes, and strict validation.
+  - Built `SessionList` with recent study sessions grouped by day (e.g. Today, Yesterday), displaying daily total duration, note snippets, inline edit modal, and delete confirmation.
+  - Built `TaskManager` with 3 filter tabs (Today, Upcoming, Done), tab counters, add task modal, edit modal, delete confirmation, and interactive checkbox toggles.
+  - Connected `studyService.js` with shared localStorage keys `anushasan:study_sessions` and `anushasan:student_tasks`. All logged sessions and tasks immediately update `/student/dashboard` streak, chart, task counts, and discipline score.
+  - Responsive 2-column layout (Timer & Sessions on left, Tasks on right on desktop) adapting seamlessly to tablet and mobile.
+- Step 8 completed: Habits and goals tracking at `/student/habits-goals`.
+  - Built `HabitGrid` weekly Monday-to-Sunday interactive grid with live day tick boxes, custom icon pills (study, exercise, reading, water, sleep), weekly consistency percentage per habit, add habit modal with fixed icon selector, and delete confirmation.
+  - Built `GoalCard` with target completion date, dynamic days remaining calculation, interactive milestone progress slider (0-100%), "Mark Achieved" shortcut, and delete action.
+  - Organized goals into distinct "In Progress" and "Accomplished Goals" groups.
+  - Integrated habit logs with `scoreService.js`, feeding weekly habit completion directly into the student's Discipline Score.
+  - Handled loading, empty (no habits, no active goals), and error states with retry functionality. Full responsive support across mobile (375px), tablet (768px), and desktop (1280px).
+- Step 9 completed: Resource library at `/student/library`.
+  - Built `Library` with Class resources and My files tabs (Solo students automatically restricted to My files only).
+  - Search input, subject filter, type filter (Notes, Assignment, PYQ), and sort (newest, oldest, title, size).
+  - `ResourceCard` showing title, subject, type badge, size, uploader, date, working sample PDF download blob, in-app preview modal, and delete action for personal uploads.
+  - Reusable `FileUpload` component with drag-and-drop, PDF-only verification, and 10 MB limit enforcement.
+- Step 10 completed: Attendance and grievances (class mode only) at `/student/attendance` and `/student/grievances`.
+  - **Attendance (`/student/attendance`):**
+    - Overview stat cards: Overall rate (93%), Present (12), Late (1), Absences (1).
+    - Academic Threshold Banner: Prominent danger alert banner when attendance drops below 75%, calculating exact consecutive attended sessions needed to recover standing. Included interactive preview toggle for demonstration.
+    - Course Attendance Breakdown: Progress cards for individual courses (OS, DSA) showing course rates and session counts.
+    - `AttendanceCalendar`: Monthly calendar grid with color + text indicators for Present, Late, Absent, session inspector banner, and comprehensive accessible legend.
+    - `TimetableGrid`: Weekly lecture timetable (Mon–Fri) with day tabs, time slots, room locations, and mentor names.
+    - Chronological session log table with course and status filters.
+  - **Grievances (`/student/grievances`):**
+    - Seeded 6 realistic grievances in all 4 states (`open`, `in_review`, `resolved`, `escalated`) in `src/mock/grievances.js` strictly following spec section 10.
+    - Overview stat cards and status filter tabs (`All`, `Open`, `In Review`, `Resolved`, `Escalated`).
+    - `GrievanceCard`: Status badges matching spec colors, course and category tags, submission date, and mentor reply indicator.
+    - `GrievanceDetailModal`: Full grievance inspection with status progression stepper and mentor reply card.
+    - `GrievanceForm`: Modal with strict form validation (title >= 5 chars, description >= 10 chars, class and category selectors) instantly persisting new grievances as `open` in localStorage.
+  - **Route Protection & Solo Mode Restrictions:**
+    - Both `/student/attendance` and `/student/grievances` are guarded with `requiresClassMode`. Solo students attempting direct access are automatically redirected to `/student/dashboard`.
+    - Sidebar navigation dynamically hides Attendance and Grievances links for solo students.
+- Step 11 completed: Weekly report and achievements at `/student/report`.
+  - Built `WeeklySummary` showing current Discipline Score vs previous week with delta indicator pill, total study hours this week, task completion percentage, habit consistency, and attendance percentage (class mode only; strictly omitted in solo mode).
+  - Synthesized 3 dynamic plain-language insights generated by simple rules (study consistency frequency, peak productivity day, and academic/habit pillar highlights).
+  - Built 8-week historical Discipline Score trend line chart with passing score reference line (50 pts) and interactive tooltips.
+  - Implemented `RechartsShim` zero-dependency SVG chart fallback with Vite path alias ensuring 100% stable chart rendering across environments.
+  - Seeded 8 badges in `src/mock/badges.js` strictly following spec section 11.
+  - Built `BadgeGrid` featuring milestone progress bar, filter tabs (All, Unlocked, Locked), rich vibrant cards for unlocked badges with earned date, and grayscale styling for locked badges displaying exact unlock conditions.
+  - Verified solo student accounts (`solo@campus.edu`) completely omit attendance metrics and attendance insights.
+- Step 12 completed: Student profile and settings at `/student/profile`.
+  - Built `Profile` page with profile hero card, personal information form, study mode management panel, change password form, and account termination danger zone.
+  - Profile edits (Full Name, Daily study goal in minutes) save to localStorage and immediately update `AuthContext`, dynamically reflecting in the dashboard greeting and topbar avatar. Email is clearly displayed as read-only.
+  - Study Mode Panel:
+    - In Class Mode: displays enrolled course list with join codes and mentor info; provides "Switch to Solo Mode" action.
+    - Confirmation modal warns that attendance & grievances will be hidden while personal logs and tasks remain preserved; on confirm, leaves class membership and immediately updates sidebar navigation without requiring a page reload.
+    - In Solo Mode: displays self-study notice and provides a "Join a Class" button navigating to `/student/join-class`.
+  - Change Password form with mock verification, minimum 6 characters rule, and confirmation matching.
+  - Danger Zone: "Log Out" action and "Delete Account" action with an irreversible action confirmation modal that purges user data and redirects to `/auth`.
+- Step 13 completed: Mentor classes and profile at `/mentor/classes` and `/mentor/profile`.
+  - Built `mentorService.js` with class management, unique 6-character code generation without ambiguous characters, student enrollment counting, class renaming, class deletion, and mentor profile & password management.
+  - Created `ClassCard.jsx` displaying class title, subject badge, enrolled student count, join code callout box, "Copy Code" button with clipboard write and instant "Copied!" confirmation, direct link to class dashboard (`/mentor/classes/:classId`), and three-dot action dropdown for Rename and Delete.
+  - Created `CreateClassModal.jsx` with class name input, subject/domain dropdown (with custom subject option), pre-generated unique 6-character code display with regeneration capability, and form validation.
+  - Created `Classes.jsx` featuring:
+    - Summary stat cards: Total Classes, Enrolled Students, and Active Join Codes.
+    - Search input (searches by title, subject, or join code) and subject filter selector.
+    - Class cards grid dynamically rendering mentor's course sections.
+    - Rename Class modal with live validation and persistent updates.
+    - Delete Class confirmation modal with warning regarding student enrollment removal.
+    - Empty state with CTA button when zero classes exist or when search filter yields no results.
+    - Dismissable notification toast banner for feedback.
+  - Created `MentorProfile.jsx` featuring:
+    - Faculty hero card with mentor initials avatar, email, faculty role badge, and department.
+    - Faculty details form with name and department editing, immediately updating session and synchronizing mentor name on course cards.
+    - Change Password form with current password verification and confirmation match check.
+    - Log Out action clearing session and redirecting to `/auth`.
+  - Updated `AppRoutes.jsx` mounting `<Classes />` on `ROUTES.mentorClasses` and `<MentorProfile />` on `ROUTES.mentorProfile` inside `<ProtectedRoute allowedRole="mentor"><AppShell>`.
+- Step 14 completed: Mentor class dashboard and risk alerts at `/mentor/classes/:classId` and `/mentor/alerts`.
+  - Created `src/mock/classStudents.js` seeding 10 students across Operating Systems and DSA sections with diverse performance profiles, historical score trajectories, and risk conditions strictly matching spec sections 10 & 11.
+  - Implemented risk rule evaluation in `mentorService.js`: flags students at risk when Discipline Score < 50 or when score dropped >= 15 points compared with previous week, generating clear contextual reasons (e.g., "Score 42, down 18 points from last week").
+  - Built `RiskBadge.jsx` for standard at-risk (red with AlertTriangle icon) and on-track (green with CheckCircle2 icon) indicators with tooltips and optional reason text.
+  - Built `StudentTable.jsx` supporting:
+    - Interactive sort by Student Name, Discipline Score, Streak, Attendance %, and Risk Status (ascending & descending).
+    - Live search input filtering across student name and email.
+    - Performance score mini-progress indicators and low-attendance warnings (< 75%).
+    - Responsive mobile wrapper (`overflow-x: auto`) enabling smooth internal scrolling without layout clipping.
+    - Keyboard-accessible row selection opening student details.
+  - Built `StudentDetailDrawer.jsx` slide-over side panel displaying:
+    - Student avatar, name, email, risk badge, and faculty intervention alert banner.
+    - Performance tiles: Discipline Score with week-over-week delta, study streak, study hours in past 7 days, and attendance %.
+    - 8-Week Score History LineChart with passing score (50 pts) reference threshold.
+    - Faculty privacy disclaimer ensuring student personal notes and journal reflections remain confidential.
+  - Built `ClassDashboard.jsx` featuring:
+    - Course breadcrumb navigation and join code copy button.
+    - Top summary metrics: Average Discipline Score, Students at Risk count, Average Attendance rate, and Goals on Track ratio.
+    - Score distribution BarChart categorizing class into 4 score bands (`< 50`, `50-69`, `70-84`, `85-100`).
+    - Full `StudentTable` and slide-over `StudentDetailDrawer`.
+  - Built `Alerts.jsx` featuring:
+    - Tabbed status navigation: Active Alerts, Contacted, Dismissed, and All.
+    - Course section filter dropdown.
+    - Rich alert cards displaying student telemetry, score drop highlights, and risk condition explanations.
+    - Action handlers: `Mark as contacted` (updates state to contacted with badge) and `Dismiss` (removes from active alerts).
+    - `Inspect Record` action opening the student telemetry side panel directly.
+  - Updated `Sidebar.jsx`, `Sidebar.css`, and `MobileNav.jsx` with real-time active alert count badge pill on the `Risk Alerts` navigation link, auto-refreshing via the `anushasan:alerts_updated` custom event whenever faculty contacts or dismisses alerts.
+  - Updated `AppRoutes.jsx` mounting `<ClassDashboard />` and `<Alerts />` under protected mentor routes in `AppShell`.
+- Step 15 completed: Mentor resource upload at `/mentor/upload`.
+  - Updated `resourceService.js` adding class-specific enrollment filtering for students (`getResources`), mentor upload fetching (`getMentorResources`), batch resource creation (`uploadClassResources`), and cross-campus resource removal (`deleteClassResource`).
+  - Enhanced reusable `FileUpload.jsx` with `dropzoneOnly` and `multiple={true}` support, supporting drag-and-drop and batch selection of multiple PDF files while preserving backward compatibility for single-file modal uploads in student Library.
+  - Built `UploadResources.jsx` featuring:
+    - Upload Form: Target class section selector, auto-filled subject domain, resource category selector (`notes`, `assignment`, `pyq`), title (min 3 chars), optional instructions/description textarea, and assignment due date picker.
+    - PDF Drag & Drop Zone: strictly restricts file types to PDF and validates 10 MB per-file limits, supporting multiple file selections simultaneously.
+    - Multi-file Publishing: each uploaded file creates an individual, distinct resource in `campus_resources` with proper metadata, file size, and timestamp.
+    - Uploaded Materials Table: filters by search keyword, class section, and category; displays document title, filename, class, subject, category badge, due date, size, and upload date.
+    - Sample PDF blob generation allowing instant file download testing.
+    - Delete Action with Modal Confirmation: removes document from `campus_resources`, immediately reflecting across the mentor's table and the enrolled students' Class Resources tab.
+  - Updated `AppRoutes.jsx` mounting `<UploadResources />` on `ROUTES.mentorUpload` inside `<ProtectedRoute allowedRole="mentor"><AppShell>`.
+- Step 16 completed: Mentor attendance marking at `/mentor/attendance`.
+  - Updated `attendanceService.js`:
+    - Added `getClassSessionAttendance(classId, sessionDate)` retrieving existing session records as a status lookup map.
+    - Added `saveClassSessionAttendance({ classId, sessionDate, subject, studentStatuses })`: strictly purges existing records for that `(classId, sessionDate)` before appending newly marked records, guaranteeing zero duplicate sessions for the same class and date.
+    - Synchronizes `campus_class_students` telemetry (`attendance_pct` and `current_score`) and dispatches `anushasan:attendance_updated` custom event so mentor and student views auto-refresh.
+    - Added `getClassAttendanceHistory(classId)` grouping session records by date with total, present, late, absent counts, and attendance rate percentages.
+    - Refined student attendance retrieval to accurately isolate individual student records while preserving demo student fallbacks.
+  - Built `MarkAttendance.jsx` & `MarkAttendance.css` featuring:
+    - Session Configuration: Select class section, date picker with "Today" shortcut, optional lecture topic input, and dynamic mode banner ("Editing Past Attendance Session" vs "New Attendance Session").
+    - Real-time Session Tally: Live presence percentage badge, total enrolled, present, late, and absent counters.
+    - Shortcuts & Roster Toolbar: Quick search input, "Mark all present" and "Mark all absent" batch buttons.
+    - Interactive 3-Way Toggles: Segmented button group (`Present` in green, `Late` in amber, `Absent` in red) with accessible keyboard and ARIA support.
+    - Session History Table: Full audit list of past sessions for the chosen class showing session date, subject, attendance rate badge, breakdown tags, and an "Edit" action that immediately loads that date's session into the editor.
+    - Empty and error states with clear feedback and auto-dismissing success toast.
+  - Updated `AppRoutes.jsx` mounting `<MarkAttendance />` on `ROUTES.mentorAttendance` inside `<ProtectedRoute allowedRole="mentor"><AppShell>`.
+- Step 17 completed: Mentor grievance resolution at `/mentor/grievances`.
+  - Updated `grievanceService.js`:
+    - Added `getMentorGrievances(mentorId, { status, classId, searchQuery })` filtering grievances across classes taught by the mentor.
+    - Added `getMentorGrievanceStats(mentorId)` returning live counters for Total, Open, In Review, Resolved, and Escalated tickets.
+    - Added status progression audit tracking (`status_history: [{ status, timestamp, updated_by, note }]`) preserving complete timeline progression.
+    - Added `addReply(id, replyText, mentorName, markResolved)` and `escalateGrievance(id, reason, mentorName)`.
+    - Added `anushasan:grievance_updated` custom event dispatching so both mentor and student grievance screens update in real time without page reloads.
+  - Built `Grievances.jsx` & `Grievances.css` for Mentor Portal featuring:
+    - Header with overview statistics strip (Total, Open, In Review, Resolved, Escalated).
+    - Status tabs filter (`All Issues`, `Open`, `In Review`, `Resolved`, `Escalated`) with dynamic badge counters.
+    - Secondary filters: Course section dropdown (`All My Classes` or individual class) and instant keyword search input.
+    - Grievance cards grid displaying status badge, course code, category tag, student avatar/name, ticket ID, title, description preview, response status indicator, and a "Review Issue" CTA.
+    - Full Investigation & Resolution Modal:
+      - Top metadata bar with status, course tag, and category.
+      - Student profile and submission date/time info card.
+      - Full issue title and description box.
+      - Visual vertical status history progression stepper / audit timeline.
+      - Faculty mentor response section showing saved response and composer textarea for updating/posting replies.
+      - All 4 action controls: `Move to In Review`, `Send Reply`, `Mark Resolved`, and `Escalate to Admin`.
+      - Dedicated escalation confirmation modal with optional administrative reason field, routing the issue to Department Administration.
+  - Updated `src/pages/student/Grievances.jsx` with an active event listener for `anushasan:grievance_updated`, allowing students to instantly see mentor replies and status transitions live.
+- Step 18 completed: Admin department setup and profile at `/admin/setup` and `/admin/profile`.
+  - Seeded `INITIAL_DEPARTMENTS` (`dept_cs` — Computer Science & Engineering) and `INITIAL_DEPARTMENT_MENTORS` (Prof. Rajesh Verma, Dr. Kavita Raman, Prof. Alok Nath) in `src/mock/departments.js` and appended to `src/mock/index.js`.
+  - Created `src/services/adminService.js`:
+    - `getDepartmentOverview`: computes dynamic statistics (`totalMentors`, `totalClasses`, `totalStudents`).
+    - `updateDepartment`: validates and saves department name, code, and description with localStorage persistence under `campus_departments`.
+    - `getDepartmentMentors`: lists faculty mentors with live computed class assignment counts and course codes.
+    - `addMentor`: validates email uniqueness, creates mentor entry in `department_mentors`, and registers login account in `registered_users` with default credentials (`Password123`).
+    - `removeMentor`: removes mentor with automatic class protection, allowing safe reassignment of active classes to a colleague or administrative faculty.
+    - `getDepartmentClasses`: aggregates all department course sections with enrolled student tallies.
+    - `reassignClassMentor`: reassigns course section to another faculty mentor, updating `campus_classes` and dispatching cross-portal synchronization events (`anushasan:classes_updated`, `anushasan:mentors_updated`).
+    - `updateAdminProfile` and `changeAdminPassword`: manages administrator name and credential updates.
+  - Built `DepartmentSetup.jsx` & `DepartmentSetup.css`:
+    - Department Name & Details Editor: inline editable form with department name, uppercase code tag, and scope description; live aggregate metrics strip showing Faculty Mentors, Course Sections, and Enrolled Students.
+    - Faculty Mentors Roster: search filter by name or email, live class count badge pill, Add Mentor modal with name and email inputs, and Remove Mentor modal featuring class reassignment dropdown for zero orphaned classes.
+    - Department Course Sections Roster: search filter by course title, join code, subject, or assigned mentor; course section information with student enrollment badges, and Reassign Mentor modal allowing one-click instructor handoffs.
+    - Full responsiveness, accessible modal dialogs, and auto-dismissing toast feedback banners.
+  - Built `AdminProfile.jsx` & `AdminProfile.css`:
+    - Administrator hero card with initials avatar ("SR"), verified email (`admin@campus.edu`), Campus Administrator role badge, and department jurisdiction.
+    - Administrator details form: full name editor, read-only official email, academic designation, and department jurisdiction; persists to storage and updates `AuthContext`.
+    - Change Password form: current password verification (demo: `Password123`), minimum 6 characters rule, and confirmation match validation.
+    - Session Actions: Sign Out button terminating active session and navigating to `/auth`.
+  - Mounted `<DepartmentSetup />` on `ROUTES.adminSetup` and `<AdminProfile />` on `ROUTES.adminProfile` inside `<ProtectedRoute allowedRole="admin"><AppShell>` in `AppRoutes.jsx`.
+- Step 19 completed: Admin analytics, grievances, and counselling at `/admin/analytics`, `/admin/grievances`, and `/admin/counselling`.
+  - Updated `src/services/adminService.js`:
+    - Added `getDepartmentAnalytics({ classId, departmentId })`: aggregates summary statistics (`totalStudents`, `averageDisciplineScore`, `atRiskCount`, `averageAttendance`), computes class comparison metrics (average score, attendance %, at-risk count per section), computes 8-week department score trend, and categorizes students across 4 discipline score bands (`Critical`, `Needs Attention`, `Good`, `Exemplary`).
+    - Added `getAdminGrievances({ status, classId, searchQuery })`: lists department grievances prioritized with escalated tickets first, enriched with course section metadata.
+    - Added `getAdminGrievanceStats()`: provides live counts across `total`, `open`, `in_review`, `resolved`, and `escalated` status categories.
+    - Added `resolveAdminGrievance(id, { reply, markResolved, adminName })`: records formal administrative determination, writes to audit log, and notifies student and mentor views live via `anushasan:grievance_updated`.
+    - Added `getAtRiskStudentsGroupedByClass()`: groups flagged students by section with specific trigger explanations (score < 50 or drop >= 15 pts).
+    - Added `getCounsellingPlans({ status, classId })` and `getCounsellingStats()`: persists intervention plans in `campus_counselling_plans` across planned, in-progress, and completed states.
+    - Added `createCounsellingPlan`, `updateCounsellingPlanStatus`, and `deleteCounsellingPlan` with cross-portal event dispatching (`anushasan:counselling_updated`).
+  - Created `src/components/admin/DeptChart.jsx` & `DeptChart.css`:
+    - Multi-mode SVG charting component supporting both grouped class comparison bars (Discipline Score vs Attendance %) and 8-Week department trend line with passing benchmark threshold (50 pts) and interactive hover tooltips.
+  - Built `src/pages/admin/Analytics.jsx` & `Analytics.css`:
+    - Top summary metrics strip: Total Enrolled Students, Average Discipline Score (with tier badge), Students at Risk (with percentage and alert color), and Average Attendance Rate.
+    - Course Section filter dropdown allowing dynamic department-wide or class-specific views.
+    - Dual charts grid featuring `Class Performance Comparison` and `8-Week Score Trajectory`.
+    - Discipline score distribution bar tracks categorizing student dispersion across critical (< 50), needs attention (50-69), consistent (70-84), and exemplary (85-100) tiers.
+    - Detailed course sections telemetry table with student counts, score progress bars, attendance badges, and risk flags.
+  - Built `src/pages/admin/AdminGrievances.jsx` & `AdminGrievances.css`:
+    - Top metrics strip and status tabs: `Escalated to Admin` (highlighted in red/amber with active counter), `Open`, `In Review`, `Resolved`, and `All Grievances`.
+    - Secondary class section selector and real-time keyword search input.
+    - Grievance cards grid displaying course code, category tag, student identity, issue description preview, and prominent escalation notice with mentor handover notes.
+    - Administrative Resolution Modal with full issue details, audit timeline progression stepper, and official response composer supporting `Mark as Resolved` or `Keep In Review`.
+  - Built `src/pages/admin/Counselling.jsx` & `Counselling.css`:
+    - Top metrics strip: At-Risk Students, Total Plans, Planned, In Progress, Completed.
+    - Section A: At-risk students grouped by course section with student performance tiles, attendance %, and "Plan Counselling" quick action pre-filling that student.
+    - Section B: Active counselling plans board with status filters (`All`, `Planned`, `In Progress`, `Completed`), course section filter, student tags, target dates, assigned faculty mentors, notes, and 3-way status toggles (`Planned` | `In Progress` | `Completed`).
+    - Create Counselling Plan Modal: class selection, multi-student checkbox selection, title, intervention date, assigned faculty/counsellor selector, and action strategy textarea.
+  - Mounted `<Analytics />` on `ROUTES.adminAnalytics`, `<AdminGrievances />` on `ROUTES.adminGrievances`, and `<Counselling />` on `ROUTES.adminCounselling` within `<ProtectedRoute allowedRole="admin"><AppShell>` in `AppRoutes.jsx`.
+- Step 20 completed: Final polish, responsive audit, code consistency, and README.
+  - Performed comprehensive walkthrough of all 25 application routes across all 3 roles (Student Class/Solo, Faculty Mentor, Campus Administrator):
+    - Public: Landing page (`/`), Authentication login/signup (`/auth`), Role selection (`/select-role`), Student mode onboarding (`/student/mode`), Class join code entry (`/student/join-class`).
+    - Student: Dashboard (`/student/dashboard`), Study tracker (`/student/study`), Habits & goals (`/student/habits-goals`), Resource library (`/student/library`), Attendance (`/student/attendance`), Grievances (`/student/grievances`), Growth report & badges (`/student/report`), Settings & profile (`/student/profile`).
+    - Mentor: Classes roster (`/mentor/classes`), Class dashboard (`/mentor/classes/:classId`), Risk alerts (`/mentor/alerts`), Resource upload (`/mentor/upload`), Mark attendance (`/mentor/attendance`), Grievance resolution (`/mentor/grievances`), Profile (`/mentor/profile`).
+    - Admin: Department analytics (`/admin/analytics`), Department setup (`/admin/setup`), Grievances oversight (`/admin/grievances`), Counselling plans (`/admin/counselling`), Profile (`/admin/profile`).
+  - Audited and verified zero remaining placeholder components or placeholder text in `AppRoutes.jsx` and throughout portal pages.
+  - Cleaned up unused imports, obsolete helper definitions, and verified that all zero-dependency SVG chart instances render cleanly without warnings.
+  - Verified loading, empty, and error feedback states across tables, lists, and drawers with keyboard escape and focus handling on all modals.
+  - Wrote comprehensive, professional `README.md` covering project architecture, feature matrix for all 3 personas, demo login credentials table, working class join codes, technology stack, directory breakdown, local setup guide, and Phase 2 Supabase migration blueprint.
+  - Steps 0 through 20 are now 100% complete. Phase 1 Prototype is fully ready for demonstration.
+- Step 21a completed: Supabase integration setup.
+  - Added `@supabase/supabase-js` (^2.46.1) to `package.json` dependencies.
+  - Created `.env.example` documenting `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
+  - Created `.env` with initial development placeholders.
+  - Created `src/lib/supabaseClient.js` exporting `supabase` client and `isSupabaseConfigured` flag for graceful environment detection and fallback handling.
+  - Phase 2 hard rule strictly preserved: zero UI pages modified.
+- Step 21b completed: Supabase database schema authored.
+  - Created `supabase/schema.sql` defining all 16 tables from Spec Section 10 (`profiles`, `departments`, `classes`, `class_members`, `study_sessions`, `tasks`, `habits`, `habit_logs`, `goals`, `resources`, `attendance_records`, `grievances`, `badges`, `student_badges`, `score_snapshots`, `counselling_plans`).
+  - Configured UUID primary keys, foreign key constraints with cascade/null actions, unique session/enrollment constraints, and check constraints.
+  - Added indexes on high-frequency query paths (foreign keys, join codes, status fields, and sorted date ranges).
+  - Implemented automatic updated_at trigger and `handle_new_user` signup synchronization trigger connecting `auth.users` to `public.profiles`.
+  - Seeded standard Anushasan achievement badges (`first_step`, `streak_7`, `streak_30`, `century_hours`, `perfect_week`, etc.).
+  - Phase 2 hard rule strictly preserved: zero UI pages modified.
+- Step 21c completed: Supabase Row Level Security (RLS) policies authored.
+  - Created `supabase/policies.sql` establishing strict role-based access control across all 16 tables.
+  - Implemented 6 security-definer helper functions (`current_role`, `is_admin`, `is_mentor`, `is_mentor_of_class`, `is_student_in_class`, `is_mentor_of_student`).
+  - Enforced student isolation: students can only query and mutate their own personal logs, sessions, tasks, habits, goals, and grievances.
+  - Enforced class resource boundaries: students only see class materials for classes where they are active members in `class_members`.
+  - Enforced mentor boundaries: mentors only query and manage attendance, classes, resources, grievances, and telemetry for sections they instruct.
+  - Enforced administrative oversight: department administrators have department-wide read access and exclusive resolution control over escalated grievances.
+  - Included diagnostic verification test queries in `supabase/policies.sql`.
+  - Phase 2 hard rule strictly preserved: zero UI pages modified.
+- Step 21d completed: Supabase Auth integration in authService & AuthContext.
+  - Replaced mock `authService` internals with live `@supabase/supabase-js` Auth API (`signInWithPassword`, `signUp`, `signOut`, `getSession`) while maintaining seamless fallback to mock demo store.
+  - Synchronized registration with `public.profiles` row creation.
+  - Added role verification safeguards for elevated roles (`mentor`, `admin`) with invite code verification and pre-authorized faculty codes (`CAMPUS_FACULTY_2026`, `CAMPUS_ADMIN_2026`).
+  - Updated `AuthContext.jsx` with real-time `supabase.auth.onAuthStateChange` listener to automatically synchronize session events.
+  - Preserved identical method signatures and return shapes (`{ user }`, `role`, `studyMode`); zero UI pages modified.
+- Step 21e completed: Supabase Storage configuration and PDF handling.
+  - Created `supabase/storage.sql` declaring the `resources` bucket with 10 MB file size limit and strict PDF MIME-type restriction.
+  - Authored storage RLS policies granting authenticated read access, upload permissions for campus members, and owner/admin delete controls.
+  - Created `src/lib/storageClient.js` handling file uploads, public URL generation, and storage cleanup.
+  - Connected `resourceService.js` to upload personal and class PDF files to Supabase Storage, saving `file_path` and `file_url` to `public.resources`.
+- Step 21f completed: Database Services Migration.
+  - Connected all 8 platform services (`studyService.js`, `habitService.js`, `scoreService.js`, `studentService.js`, `attendanceService.js`, `grievanceService.js`, `mentorService.js`, `adminService.js`) to Supabase tables.
+  - Implemented resilient dual-mode architecture: executes live queries against Supabase tables when `isSupabaseConfigured` is true, falling back to local storage and cached seed data when unconfigured or offline.
+  - Preserved identical method signatures, argument contracts, and return structures across all services so zero UI pages or components required changes.
+  - Handled duplicate-free attendance session marking, JSONB status history on grievances, cascading class memberships, and score snapshot trend aggregation.
+- Step 21g completed: Cleanup & Final Documentation.
+  - Updated `README.md` with comprehensive Phase 2 deployment instructions covering environment variable setup (`.env`), SQL execution order (`supabase/schema.sql`, `supabase/policies.sql`, `supabase/storage.sql`), elevated role authorization codes (`CAMPUS_FACULTY_2026`, `CAMPUS_ADMIN_2026`), and dual-mode architecture.
+  - Validated that all fallback cache imports in `src/services/` function cleanly without interfering with live Supabase operations.
+- Post-Phase 2 Stability & UX Hardening completed:
+  - **1-Click Authentication & Role Direct Entry**:
+    - Added dedicated "Log in as Mentor", "Log in as Student", and "Log in as Admin" buttons on landing page role cards.
+    - Upgraded Auth page (`/auth`) with 1-click instant login demo chips (`Mentor (Prof. Verma)`, `Student (Class)`, `Student (Solo)`, `Admin`).
+    - Tailored headers on `/auth` to display persona-specific guidance (`Faculty Mentor Login`, `Administrator Login`, `Student Portal Login`).
+    - Added `Dr. Kavita Raman` (`kavita.raman@campus.edu`) and `Prof. Alok Nath` (`alok.nath@campus.edu`) to mock fixtures with assigned classes (`DB202K` DBMS class).
+  - **Polymorphic Icon Rendering in Common Components**:
+    - Upgraded `Button.jsx`, `EmptyState.jsx`, `Badge.jsx`, `StatCard.jsx`, and `OptionCard.jsx` with `React.isValidElement(Icon)` inspection to safely render both React elements (e.g. `<Plus size={18} />`) and Lucide icon components (e.g. `Plus`) without triggering React type errors.
+    - Fixed fatal render crash on `/mentor/classes` header caused by component type mismatch.
+    - Added support for `loading` prop alias in `Button.jsx` and added `.badge--primary` styling in `Badge.css`.
+  - **Application Error Boundary & Crash Isolation**:
+    - Built `ErrorBoundary.jsx` displaying a styled recovery panel with "Refresh Page" and "Return Home" actions.
+    - Wrapped top-level React root in `App.jsx`, guaranteeing sub-component runtime errors never produce a blank white screen.
+  - **Browser History & Natural Back Navigation**:
+    - Replaced `navigate(destination, { replace: true })` with `navigate(destination)` in `Auth.jsx` to maintain the browser history stack.
+    - Removed aggressive `useEffect` auto-redirect in `Auth.jsx` so hitting browser Back returns smoothly to the previous page where the active session banner displays portal navigation or logout options.
+
+
+
+
+
+
+
+
+
+
+
+
+

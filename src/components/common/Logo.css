@@ -1,0 +1,61 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  user-select: none;
+  text-decoration: none;
+}
+
+.logo__mark {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: var(--color-surface);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  box-shadow: var(--shadow-sm);
+}
+
+.logo__text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo__name {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  color: var(--color-text);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.logo__tagline {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+/* Sizes */
+.logo--sm .logo__mark {
+  padding: 4px;
+}
+.logo--sm .logo__name {
+  font-size: var(--font-size-md);
+}
+
+.logo--md .logo__mark {
+  padding: 6px;
+}
+.logo--md .logo__name {
+  font-size: var(--font-size-xl);
+}
+
+.logo--lg .logo__mark {
+  padding: 8px;
+}
+.logo--lg .logo__name {
+  font-size: var(--font-size-2xl);
+}

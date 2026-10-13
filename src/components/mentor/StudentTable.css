@@ -1,0 +1,221 @@
+.student-table-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-top: var(--space-6);
+}
+
+.student-table-header {
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.student-table-header__title-group h3 {
+  margin: 0 0 2px 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-heading);
+  color: var(--color-text);
+}
+
+.student-table-header__subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.student-table-search {
+  position: relative;
+  min-width: 240px;
+  max-width: 340px;
+  flex: 1;
+}
+
+.student-table-search__icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.student-table-search__input {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-body);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.student-table-search__input:focus {
+  outline: none;
+  border-color: #4F46E5;
+  background: var(--color-surface);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+
+/* Scrollable container for mobile */
+.student-table__wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--font-size-sm);
+  min-width: 680px; /* Ensures readable columns and smooth internal scroll on mobile */
+}
+
+.student-table th {
+  background: #F8FAFC;
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--font-weight-label);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.student-table th.sortable {
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.student-table th.sortable:hover {
+  color: #4F46E5;
+}
+
+.student-table th .th-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.student-table td {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.student-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.student-table tbody tr:hover {
+  background: rgba(79, 70, 229, 0.04);
+}
+
+.student-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Student name cell */
+.student-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.student-cell__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: #EEF2FF;
+  border: 1px solid #C7D2FE;
+  color: #4F46E5;
+  font-weight: 600;
+  font-size: var(--font-size-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-cell__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.student-cell__name {
+  font-weight: var(--font-weight-label);
+  color: var(--color-text);
+}
+
+.student-cell__email {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* Score cell */
+.score-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.score-cell__value {
+  font-weight: 700;
+  font-size: var(--font-size-base);
+  width: 32px;
+}
+
+.score-cell__progress-bar {
+  width: 60px;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.score-cell__progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+
+/* Attendance cell */
+.attendance-cell {
+  font-weight: 600;
+}
+
+.attendance-cell--low {
+  color: var(--color-danger);
+}
+
+.attendance-cell--ok {
+  color: var(--color-text);
+}
+
+/* Action button */
+.student-table__view-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-label);
+  color: #4F46E5;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.student-table__view-btn:hover {
+  background: #EEF2FF;
+  border-color: #C7D2FE;
+}

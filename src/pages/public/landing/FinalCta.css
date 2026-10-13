@@ -1,0 +1,103 @@
+.final-cta {
+  padding: var(--space-64) 0;
+  background-color: var(--color-surface);
+}
+
+.final-cta__box {
+  background: linear-gradient(135deg, #0F766E 0%, #115E59 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7) var(--space-5);
+  color: var(--color-surface);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .final-cta__box {
+    padding: var(--space-64) var(--space-7);
+  }
+}
+
+.final-cta__content {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.final-cta__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-accent-soft);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-label);
+  padding: 4px var(--space-3);
+  border-radius: var(--radius-full);
+}
+
+.final-cta__headline {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-heading);
+  color: var(--color-surface);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .final-cta__headline {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+.final-cta__subtext {
+  font-size: var(--font-size-base);
+  color: var(--color-primary-soft);
+  line-height: 1.6;
+}
+
+.final-cta__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 440px;
+}
+
+@media (min-width: 640px) {
+  .final-cta__actions {
+    flex-direction: row;
+    justify-content: center;
+    max-width: none;
+  }
+}
+
+.final-cta__btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+
+.final-cta__btn-primary:hover:not(:disabled) {
+  background-color: #D97706;
+  border-color: #D97706;
+  color: var(--color-surface);
+}
+
+.final-cta__btn-secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-surface);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.final-cta__btn-secondary:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--color-surface);
+}

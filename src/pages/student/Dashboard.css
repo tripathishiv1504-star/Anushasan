@@ -1,0 +1,394 @@
+/* ==========================================================================
+   Student Dashboard Page Styles
+   ========================================================================== */
+
+.student-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.student-dashboard__loading,
+.student-dashboard__error {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 1. Header greeting */
+.student-dashboard__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+}
+
+.student-dashboard__welcome {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.student-dashboard__greeting-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+.student-dashboard__greeting {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-24);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.student-dashboard__mode-badge {
+  font-size: var(--font-size-12);
+}
+
+.student-dashboard__date {
+  font-size: var(--font-size-14);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.student-dashboard__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+/* Risk Rule Alert Banner */
+.student-dashboard__risk-alert {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-left: 4px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  padding: var(--space-16);
+  color: #991B1B;
+}
+
+.student-dashboard__risk-alert-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: #FEE2E2;
+  color: var(--color-danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-dashboard__risk-alert-content {
+  flex: 1;
+}
+
+.student-dashboard__risk-alert-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-14);
+  font-weight: 700;
+  margin: 0 0 var(--space-4) 0;
+}
+
+.student-dashboard__risk-alert-text {
+  font-size: var(--font-size-12);
+  margin: 0;
+  line-height: 1.4;
+  color: #7F1D1D;
+}
+
+.student-dashboard__risk-alert-btn {
+  border-color: #F87171 !important;
+  color: #991B1B !important;
+  white-space: nowrap;
+}
+
+/* 2. StatCards Grid */
+.student-dashboard__stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-16);
+}
+
+@media (min-width: 1024px) {
+  .student-dashboard__stats-grid--class {
+    grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr;
+  }
+
+  .student-dashboard__stats-grid--solo {
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  }
+}
+
+/* Discipline Score Card */
+.student-dashboard__score-card {
+  background-color: var(--color-surface);
+  border-top: 3px solid var(--color-primary);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.student-dashboard__score-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.student-dashboard__score-card-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  height: 100%;
+}
+
+.student-dashboard__score-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.student-dashboard__stat-label {
+  font-size: var(--font-size-12);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.student-dashboard__score-status {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-18);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.student-dashboard__score-caption {
+  font-size: var(--font-size-12);
+  color: var(--color-text-muted);
+}
+
+.student-dashboard__trend--up {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.student-dashboard__trend--down {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+/* 3. Main Content Grid */
+.student-dashboard__main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-24);
+}
+
+@media (min-width: 1024px) {
+  .student-dashboard__main-grid {
+    grid-template-columns: 1.35fr 1fr;
+  }
+}
+
+.student-dashboard__main-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+/* 4. Score Breakdown Card */
+.score-breakdown-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+}
+
+.score-breakdown-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+}
+
+.score-breakdown-card__title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.score-breakdown-card__icon {
+  color: var(--color-primary);
+}
+
+.score-breakdown-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-18);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.score-breakdown-card__total-tag {
+  font-size: var(--font-size-12);
+  font-weight: 700;
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.score-breakdown-card__desc {
+  font-size: var(--font-size-14);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-20) 0;
+}
+
+.score-breakdown-card__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.score-component {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.score-component__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-14);
+}
+
+.score-component__name {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.score-component__points {
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+}
+
+.score-component__bar-track {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border);
+  overflow: hidden;
+}
+
+.score-component__bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  transition: width 0.6s ease;
+}
+
+.score-component__bar-fill--accent {
+  background-color: var(--color-accent);
+}
+
+.score-component__bar-fill--info {
+  background-color: var(--color-info);
+}
+
+.score-component__bar-fill--success {
+  background-color: var(--color-success);
+}
+
+.score-component__meta {
+  font-size: var(--font-size-12);
+  color: var(--color-text-muted);
+}
+
+/* 5. Shortcuts Card */
+.shortcuts-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+}
+
+.shortcuts-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-16);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--space-16) 0;
+}
+
+.shortcuts-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  background-color: var(--color-bg);
+  transition: all 0.15s ease;
+}
+
+.shortcut-item:hover {
+  background-color: #F1F5F9;
+  border-color: #CBD5E1;
+  transform: translateX(3px);
+}
+
+.shortcut-item__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.shortcut-item__icon--primary {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.shortcut-item__icon--accent {
+  background-color: var(--color-accent-soft);
+  color: #B45309;
+}
+
+.shortcut-item__icon--neutral {
+  background-color: #E2E8F0;
+  color: #475569;
+}
+
+.shortcut-item__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.shortcut-item__label {
+  font-size: var(--font-size-14);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.shortcut-item__desc {
+  font-size: var(--font-size-12);
+  color: var(--color-text-muted);
+}

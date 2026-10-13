@@ -1,0 +1,95 @@
+.select-role-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+  padding: var(--space-6) 0;
+}
+
+.select-role-page__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1080px;
+}
+
+.select-role-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--space-7);
+}
+
+.select-role-greeting {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-label);
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-full);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.select-role-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-heading);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .select-role-title {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+.select-role-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  max-width: 520px;
+}
+
+.select-role-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-7);
+}
+
+@media (min-width: 768px) {
+  .select-role-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.select-role-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-3);
+}
+
+.select-role-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-label);
+  cursor: pointer;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.select-role-logout-btn:hover {
+  color: var(--color-danger);
+  background-color: #FEE2E2;
+}
